@@ -30,8 +30,8 @@ public class PartidasImpl implements Partidas {
 	}
 
 	/**
-	 * @param partidas Colección de partidas. Crea un objeto de tipo Partidas a
-	 *                 partir de una colección de partidas de ajedrez
+	 * @param partidas ColecciÃ³n de partidas. Crea un objeto de tipo Partidas a
+	 *                 partir de una colecciÃ³n de partidas de ajedrez
 	 */
 	public PartidasImpl(Collection<Partida> partidas) {
 		this.partidas = new ArrayList<Partida>(partidas);
@@ -39,22 +39,19 @@ public class PartidasImpl implements Partidas {
 
 	/**
 	 * @param partidas Stream de partidas Crea un objeto de tipo Partidas a partir
-	 *                 de una colección de partidas de ajedrez.
+	 *                 de una colecciÃ³n de partidas de ajedrez.
 	 */
 	public PartidasImpl(Stream<Partida> partidas) {
 		this.partidas = partidas.collect(Collectors.toList());
 	}
 
-	@Override
 	public Integer getNumeroPartidas() {
 		return partidas.size();
 	}
 
-	@Override
 	public void agregarPartida(Partida p) {
 		partidas.add(p);
 	}
-	
 	
 	public int hashCode() {
 		return Objects.hash(partidas);
@@ -75,30 +72,29 @@ public class PartidasImpl implements Partidas {
 	 * FUNCION TIPO 7
 	 * 
 	 * @param vic Tipo de victoria
-	 * @return Devuelve la media de la duración media(en segundos) por turno de las partidas. Si la media no se puede
+	 * @return Devuelve la media de la duraciÃ³n media(en segundos) por turno de las partidas. Si la media no se puede
 	 *         calcular, devuelve cero.
 	 */
 	@Override
 	public Double getPromedioDuracionesMedias(TipoVictoria vic) {
-		return partidas.stream().filter(p -> p.tipoVictoria().equals(vic))
-				.mapToDouble(p -> p.duracion().toSeconds() / p.getNumMovimientos())
+		return partidas.stream().filter(p -> p.getTipoVictoria().equals(vic))
+				.mapToDouble(p -> p.getDuracion().toSeconds() / p.getNumMovimientos())
 				.average()
 				.orElse(0);
 	}
 
 	/**
-	 * FUNCIÓN TIPO ??
+	 * FUNCIÃ“N TIPO ??
 	 * @param movimiento Movimiento concreto, por ejemplo, "Nc6" o "Bc4"
-	 * @param numeroMovimiento Número movimiento
-	 * @return Devuelve un Map en el que las claves son movimientos siguientes al dado como parámetro (según el movimiento y 
-	 *    la posición en la que se hace), y los valores el porcentaje de veces que se ha hecho ese movimiento. Por ejemplo,
-	 *    si el movimiento es "Nc6" y el número de movimiento es el 6, el Map contiene
-	 *    como claves los movimientos hechos en séptimo lugar tras un movimiento "Nc6".
-	 *    Los valores serán el porcentaje de veces que se han hecho esos movimientos.
+	 * @param numeroMovimiento NÃºmero movimiento
+	 * @return Devuelve un Map en el que las claves son movimientos siguientes al dado como parÃ¡metro (segÃºn el movimiento y 
+	 *    la posiciÃ³n en la que se hace), y los valores el porcentaje de veces que se ha hecho ese movimiento. Por ejemplo,
+	 *    si el movimiento es "Nc6" y el NÃºmero de movimiento es el 6, el Map contiene
+	 *    como claves los movimientos hechos en sÃ©ptimo lugar tras un movimiento "Nc6".
+	 *    Los valores serÃ¡n el porcentaje de veces que se han hecho esos movimientos.
 	 *    
 	 * @throws IllegalArgumentException si numeroMovimiento no es mayor o igual que uno.
 	 */
-	@Override
 	public Map<String, Double> getPorcentajesSiguienteMovimiento(String movimiento, Integer numeroMovimiento){
 		Checkers.check("Partidas.getPorcentajesSiguienteMovimiento:numeroMovimientos debe ser mayor que 0", numeroMovimiento>0);
 
@@ -112,12 +108,12 @@ public class PartidasImpl implements Partidas {
 	}
 
 	/**
-	 * Función auxiliar
+	 * FunciÃ³n auxiliar
 	 * @param movimiento Movimiento concreto, por ejemplo, "Nc6" o "Bc4"
-	 * @param numeroMovimiento Número movimiento
-	 * @return Devuelve un Map en el que las claves son los movimientos siguientes al dado como parámetro,
-	 *     y los valores el número de veces que se repite ese movimiento al continuación del dado
-	 *     como parámetro.
+	 * @param numeroMovimiento NÃºmero movimiento
+	 * @return Devuelve un Map en el que las claves son los movimientos siguientes al dado como parÃ¡metro,
+	 *     y los valores el nÃºmero de veces que se repite ese movimiento al continuaciÃ³n del dado
+	 *     como parÃ¡metro.
 	 */
 	private Map<String, Long> contarSiguientesMovimientos(String movimiento, Integer numeroMovimiento) {
 		Predicate<Partida> pred = p -> p.getNumMovimientos() > numeroMovimiento 
@@ -130,18 +126,18 @@ public class PartidasImpl implements Partidas {
 
 	
 	/**
-	 * FUNCIÓN TIPO ??
+	 * FUNCIÃ“N TIPO ??
 	 * @param apertura Nombre de la apertura utilizada.
 	 * @param resultado Resultado de la partida.
 	 * @return Devuelve
 	 * el porcentaje de partidas que incluyen la cadena de apertura 
-	 * en su apertura y cuyo resultado es el dado como parámetro. Si no se puede calcular, devuelve 0
+	 * en su apertura y cuyo resultado es el dado como parÃ¡metro. Si no se puede calcular, devuelve 0
 	 */
 	@Override
 	public Double getPorcentajeVictoriasDeApertura(String apertura, Resultado resultado) {
 		Double res = 0.0;
 		Long s = partidas.stream()
-					.filter(p->p.apertura().contains(apertura) && p.resultado().equals(resultado) )
+					.filter(p->p.getApertura().contains(apertura) && p.getResultado().equals(resultado) )
 					.count();
 		if (getNumeroPartidas()>0) {
 			res =100.* s/getNumeroPartidas();
@@ -150,34 +146,34 @@ public class PartidasImpl implements Partidas {
 	}
 	
 	/**
-	 * FUNCIÓN TIPO 10
-	 * @param anyo Año
-	 * @param n Número entero
-	 * @return Un conjunto ordenado con las n partidas más cortas jugadas en el año dado como 
-	 * parámetro. El conjunto estará ordenado por el número de movimientos de la partida.
+	 * FUNCIÃ“N TIPO 10
+	 * @param anyo aÃ±o
+	 * @param n NÃºmero entero
+	 * @return Un conjunto ordenado con las n partidas mÃ¡s cortas jugadas en el aÃ±o dado como 
+	 * parÃ¡metro. El conjunto estarÃ¡ ordenado por el NÃºmero de movimientos de la partida.
 	 */
 	@Override
 	public SortedSet<Partida> getNPartidasMasCortas(Integer anyo, Integer n){
 		Comparator<Partida> c = Comparator.comparing(Partida::getNumMovimientos)
 										.thenComparing(Comparator.naturalOrder());
 		return partidas.stream()
-				.filter(p->p.fecha().getYear() == anyo)
-				.sorted(Comparator.comparing(Partida::duracion))
+				.filter(p->p.getFecha().getYear() == anyo)
+				.sorted(Comparator.comparing(Partida::getDuracion))
 				.limit(n)
 				.collect(Collectors.toCollection(()->new TreeSet<Partida>(c)));
 	}
 	
 	/**
-	 * FUNCIÓN TIPO ??
-	 * @param anyo Año
-	 * @param n Número entero
-	 * @return Una lista con los ids de los n jugadores con más victorias en al año dado como parámetro.
+	 * FUNCIÃ“N TIPO ??
+	 * @param anyo aÃ±o
+	 * @param n NÃºmero entero
+	 * @return Una lista con los ids de los n jugadores con mÃ¡s victorias en al aÃ±o dado como parÃ¡metro.
 	 */
 	@Override
 	public List<String> getNMejoresJugadores(Integer anyo, Integer n){ 
 		
 		Comparator<Map.Entry<String, Long>> c = Map.Entry.comparingByValue();
-		Predicate<Partida> filtro = p->p.fecha().getYear() == anyo && p.getJugadorGanador()!= null;
+		Predicate<Partida> filtro = p->p.getFecha().getYear() == anyo && p.getJugadorGanador()!= null;
 		Map<String, Long> mc = getNumVictoriasPorJugador(filtro);
 		return mc.entrySet().stream()
  				 .sorted(c.reversed())
@@ -189,8 +185,8 @@ public class PartidasImpl implements Partidas {
 		
 	/**
 	 * @param filtro Predicado para filtrar las partidas que se van a contar
-	 * @return Un Map que asocia los ids de los usuarios con el número de victorias
-	 * que tras filtrar con el predicado dado como parámetro
+	 * @return Un Map que asocia los ids de los usuarios con el NÃºmero de victorias
+	 * que tras filtrar con el predicado dado como parÃ¡metro
 	 */
 	private Map<String, Long> getNumVictoriasPorJugador(Predicate<Partida> filtro) {
 		return partidas.stream()
@@ -201,36 +197,34 @@ public class PartidasImpl implements Partidas {
 	}
 
 	/**
-	 * FUNCIÓN TIPO 7
+	 * FUNCIÃ“N TIPO 7
 	 * @param idJugador Identificador de un jugador
-	 * @return El total de minutos jugados por el jugador dado como parámetro.
+	 * @return El total de minutos jugados por el jugador dado como parÃ¡metro.
 	 */
-	@Override
 	public Long getTiempoTotalJuego(String idJugador) {
-		Predicate<Partida> pred = p->p.jugadorBlancas().equals(idJugador) ||
-				   p.jugadorNegras().equals(idJugador);
+		Predicate<Partida> pred = p->p.getJugadorBlancas().id().equals(idJugador) ||
+				   p.getJugadorNegras().id().equals(idJugador);
 				
 		return partidas.stream()
 				.filter(pred)
-				.mapToLong(p->p.duracion().toMinutes())
+				.mapToLong(p->p.getDuracion().toMinutes())
 				.sum();
 	}
 
 	
 	/**
 	 * FUNCION TIPO 9
-	 * @param anyo Un año
+	 * @param anyo Un aÃ±o
 	 * @param resultado Un tipo de resultado
-	 * @return El id del usuario que ha ganado más partidas en
-	 * el año y con el año dados como parámetro. 
-	 * @throws NoSuchElementException Si no se puede calcular el máximo.
+	 * @return El id del usuario que ha ganado mÃ¡s partidas en
+	 * el aÃ±o y con el aÃ±o dados como parÃ¡metro. 
+	 * @throws NoSuchElementException Si no se puede calcular el mÃ¡ximo.
 	 */
-	@Override
 	public String getJugadorMasVictorias(Integer anyo, Resultado resultado) {
 		
 		Comparator<Map.Entry<String, Long>> c = Map.Entry.comparingByValue();
 		Predicate<Partida> filtro = 
-				p-> p.fecha().getYear() == anyo && p.resultado().equals(resultado);
+				p-> p.getFecha().getYear() == anyo && p.getResultado().equals(resultado);
 		Map<String, Long> mc = getNumVictoriasPorJugador(filtro);
 		return mc.entrySet().stream()
  				 .max(c)
@@ -239,9 +233,9 @@ public class PartidasImpl implements Partidas {
 	}
 	
 	/**
-	 * FUNCIÓN TIPO 6
-	 * @param n Número 
-	 * @return true si hay algún jugador que tenga más de n victorias
+	 * FUNCIÃ“N TIPO 6
+	 * @param n NÃºmero 
+	 * @return true si hay algÃºn jugador que tenga mÃ¡s de n victorias
 	 */
 	@Override
 	public Boolean hayJugadorConMasNVictorias(Integer n) {
@@ -254,18 +248,17 @@ public class PartidasImpl implements Partidas {
 	
 	
 	/**
-	 * FUNCIÓN TIPO 13
-	 * @param n Número entero n
+	 * FUNCIÃ“N TIPO 13
+	 * @param n NÃºmero entero n
 	 * @return Un map en el que las claves son los tipos de victoria y el valor
-	 * es el enésimo jugador con más rating entre los jugadores que han tenido
+	 * es el enÃ©simo jugador con mÃ¡s rating entre los jugadores que han tenido
 	 * victorias de ese tipo. Es decir, si hacemos un ranking de los jugadores
-	 * según su rating, nos quedaríamos con el que está en la posición n
+	 * segÃºn su rating, nos quedarÃ­amos con el que estÃ¡ en la posiciÃ³n n
 	 */
-	@Override
 	public Map<TipoVictoria, String> getGanadorNPorTipoVictoria(Integer n){
 		return partidas.stream()
 				.filter(p->p.getJugadorGanador()!= null)
-				.collect(Collectors.groupingBy(Partida::tipoVictoria,
+				.collect(Collectors.groupingBy(Partida::getTipoVictoria,
 						Collectors.collectingAndThen(Collectors.toList(), 
 								lista->seleccionarJugadorNSegunRating(lista, n))));
 	}

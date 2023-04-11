@@ -41,12 +41,9 @@ Representa una partida de ajedrez concreta.
 - _clasificatoria_, de tipo _Boolean_, consultable. Indica si las partidas han sido calificadas o no, es decir si son partidas amistosas o de tipo clasificatorio. 
 - _tipoVictoria_, de tipo _TipoVictoria_, consultable. Indica el tipo de victoria. Puede tomar los valores OUTOFTIME, RESIGN, MATE, DRAW.
 - _resultado_, de tipo _Resultado_, consultable. Indica el resultado de la partida. Puede tomar los valores WHITE, BLACK, DRAW.
-- _jugadorBlancas_, de tipo _String_, consultable. Contiene el identificador del jugador de blancas.
-- _jugadorNegras_, de tipo _String_, consultable. Contiene el identificador del jugador de negras.
-- _ratingBlancas_, de tipo _Integer_, consultable. Contiene el rating del jugador de blancas.
-- _ratingNegras_, de tipo _Integer_, consultable. Contiene el rating del jugador de negras.
+- _jugadorBlancas_, de tipo _Jugador_, consultable. Contiene el identificador del jugador de blancas.
+- _jugadorNegras_, de tipo _Jugador_, consultable. Contiene el identificador del jugador de negras.
 - _movimientos_, de tipo _List\<String\>_, consultable. Lista de movimientos de la partida.
-- _apertura_, de tipo _String_, consultable. Tipo de apertura usado en la partida.
 - _apertura_, de tipo _String_, consultable. Tipo de apertura usado en la partida.
 - _movimientoApertura_, de tipo _String_, consultable. Es el primer movimiento de la partida y, por lo tanto, se obtiene a partir del primer elemento de la lista de movimientos.
 - _numMovimientos_, de tipo _Integer_, consultable. Número de movimientos que se han realizado en la partida. Se calcula a partir del número de elementos de la lista de movimientos.
@@ -66,6 +63,7 @@ Representa una partida de ajedrez concreta.
 - R2: El movimiento inicial debe ser uno de los movimientos siguientes: h3, h4, g3, g4, f3, f4, e3, e4, d3, d4, c3, c4, b3, b4, a3, a4, Nh3, Nf3, Nc3, Na3.
 - R3: El rating de las blancas debe ser mayor que cero.
 - R4: El rating de las negras debe ser mayor que cero.
+
 ***Criterio de igualdad**: Dos partidas son iguales si todas sus propiedades básicas son iguales.
 
 **Criterio de ordenación**: Por fecha, duración y número de movimientos.
@@ -78,6 +76,18 @@ Representa una partida de ajedrez concreta.
 
 - TipoVictoria, enumerado. Puede tomar los valores OUTOFTIME, RESIGN, MATE, DRAW.
 - Resultado, enumerado. Puede tomar los valores WHITE, BLACK, DRAW.
+
+##### Jugador. 
+
+Representa un jugador con las siguientes propiedades:
+	- id, de tipo String. Id del jugador.
+	- rating, de tipo Integer. Rating del jugador.
+	
+**Constructores**: 
+
+- C1: Tiene un parámetro por cada propiedad básica del tipo.
+
+***Criterio de igualdad**: Dos jugadores son iguales si todas sus propiedades básicas son iguales.
 
 ### Factoría - FactoriaPartidas
 Clase de factoría para construir objetos de tipo Partidas.

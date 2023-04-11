@@ -33,8 +33,8 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 
 	/**
-	 * @param partidas Colección de partidas. Crea un objeto de tipo Partidas a
-	 *                 partir de una colección de partidas de ajedrez
+	 * @param partidas ColecciÃ³n de partidas. Crea un objeto de tipo Partidas a
+	 *                 partir de una colecciÃ³n de partidas de ajedrez
 	 */
 	public PartidasBuclesImpl(Collection<Partida> partidas) {
 		this.partidas = new ArrayList<Partida>(partidas);
@@ -42,7 +42,7 @@ public class PartidasBuclesImpl implements Partidas {
 
 	/**
 	 * @param partidas Stream de partidas Crea un objeto de tipo Partidas a partir
-	 *                 de una colección de partidas de ajedrez.
+	 *                 de una colecciï¿½n de partidas de ajedrez.
 	 */
 	public PartidasBuclesImpl(Stream<Partida> partidas) {
 		this.partidas = partidas.collect(Collectors.toList());
@@ -78,7 +78,7 @@ public class PartidasBuclesImpl implements Partidas {
 	 * FUNCION TIPO 7
 	 * 
 	 * @param vic Tipo de victoria
-	 * @return Devuelve la media de la duración media(en segundos) por turno de las partidas. Si la media no se puede
+	 * @return Devuelve la media de la duraciï¿½n media(en segundos) por turno de las partidas. Si la media no se puede
 	 *         calcular, devuelve cero.
 	 */
 	@Override
@@ -87,8 +87,8 @@ public class PartidasBuclesImpl implements Partidas {
 		Double suma =0.0;
 		Integer cont = 0;
 		for (Partida p: partidas) {
-			if (p.tipoVictoria().equals(vic)) {
-				suma+= p.duracion().toSeconds() / p.getNumMovimientos();
+			if (p.getTipoVictoria().equals(vic)) {
+				suma+= p.getDuracion().toSeconds() / p.getNumMovimientos();
 				cont++;
 			}
 		if (cont>0) {
@@ -99,18 +99,17 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 
 	/**
-	 * FUNCIÓN TIPO ??
+	 * FUNCIï¿½N TIPO ??
 	 * @param movimiento Movimiento concreto, por ejemplo, "Nc6" o "Bc4"
-	 * @param numeroMovimiento Número movimiento
-	 * @return Devuelve un Map en el que las claves son movimientos siguientes al dado como parámetro (según el movimiento y 
-	 *    la posición en la que se hace), y los valores el porcentaje de veces que se ha hecho ese movimiento. Por ejemplo,
-	 *    si el movimiento es "Nc6" y el número de movimiento es el 6, el Map contiene
-	 *    como claves los movimientos hechos en séptimo lugar tras un movimiento "Nc6".
-	 *    Los valores serán el porcentaje de veces que se han hecho esos movimientos.
+	 * @param numeroMovimiento Nï¿½mero movimiento
+	 * @return Devuelve un Map en el que las claves son movimientos siguientes al dado como parÃ¡metro (segÃºn el movimiento y 
+	 *    la posiciÃ³n en la que se hace), y los valores el porcentaje de veces que se ha hecho ese movimiento. Por ejemplo,
+	 *    si el movimiento es "Nc6" y el nï¿½mero de movimiento es el 6, el Map contiene
+	 *    como claves los movimientos hechos en sÃ©ptimo lugar tras un movimiento "Nc6".
+	 *    Los valores serÃ¡n el porcentaje de veces que se han hecho esos movimientos.
 	 *    
 	 * @throws IllegalArgumentException si numeroMovimiento no es mayor o igual que uno.
 	 */
-	@Override
 	public Map<String, Double> getPorcentajesSiguienteMovimiento(String movimiento, Integer numeroMovimiento){
 		Checkers.check("Partidas.getPorcentajesSiguienteMovimiento:numeroMovimientos debe ser mayor que 0", numeroMovimiento>0);
 
@@ -124,10 +123,10 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 
 	/**
-	 * FUNCIÓN TIPO 5
-	 * Función auxiliar
-	 * @param numeros Collección de números de tipo Long
-	 * @return La suma de esos números
+	 * FUNCIÃ“N TIPO 5
+	 * FunciÃ³n auxiliar
+	 * @param numeros CollecciÃ³n de nÃºmeros de tipo Long
+	 * @return La suma de esos nÃºmeros
 	 */
 	private Long sumarLongs(Collection<Long> numeros) {
 		Long res = 0L;
@@ -138,12 +137,12 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 
 	/**
-	 * FUNCION TIPO 5- Función auxiliar 
+	 * FUNCION TIPO 5- FunciÃ³n auxiliar 
 	 * @param movimiento Movimiento concreto, por ejemplo, "Nc6" o "Bc4"
-	 * @param numeroMovimiento Número movimiento
-	 * @return Devuelve un Map en el que las claves son los movimientos siguientes al dado como parámetro,
-	 *     y los valores el número de veces que se repite ese movimiento al continuación del dado
-	 *     como parámetro.
+	 * @param numeroMovimiento NÃºmero movimiento
+	 * @return Devuelve un Map en el que las claves son los movimientos siguientes al dado como parÃ¡metro,
+	 *     y los valores el nÃºmero de veces que se repite ese movimiento al continuaciÃ³n del dado
+	 *     como parÃ¡metro.
 	 */
 	private Map<String, Long> contarSiguientesMovimientos(String movimiento, Integer numeroMovimiento) {
 
@@ -164,19 +163,19 @@ public class PartidasBuclesImpl implements Partidas {
 
 	
 	/**
-	 * FUNCIÓN TIPO 5
+	 * FUNCIï¿½N TIPO 5
 	 * @param apertura Nombre de la apertura utilizada.
 	 * @param resultado Resultado de la partida.
 	 * @return Devuelve
 	 * el porcentaje de partidas que incluyen la cadena de apertura 
-	 * en su apertura y cuyo resultado es el dado como parámetro
+	 * en su apertura y cuyo resultado es el dado como parï¿½metro
 	 */
 	@Override
 	public Double getPorcentajeVictoriasDeApertura(String apertura, Resultado resultado) {
 		Long cuenta = 0L;
 		Double res = 0.0;
 		for (Partida p: partidas) {
-			if (p.apertura().contains(apertura) && p.resultado().equals(resultado)) {
+			if (p.getApertura().contains(apertura) && p.getResultado().equals(resultado)) {
 				cuenta++;
 			}
 		}
@@ -187,39 +186,37 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 	
 	/**
-	 * FUNCIÓN TIPO 5
-	 * @param anyo Año
-	 * @param n Número entero
-	 * @return Un conjunto ordenado con las n partidas más cortas jugadas en el año dado como 
-	 * parámetro. El conjunto estará ordenado por el número de movimientos de la partida.
+	 * FUNCIï¿½N TIPO 5
+	 * @param anyo AÃ±o
+	 * @param n NÃºmero entero
+	 * @return Un conjunto ordenado con las n partidas mÃ¡s cortas jugadas en el aÃ±o dado como 
+	 * parÃ¡metro. El conjunto estarÃ¡ ordenado por el nÃºmero de movimientos de la partida.
 	 */
-	@Override
 	public SortedSet<Partida> getNPartidasMasCortas(Integer anyo, Integer n){
 		Comparator<Partida> c = Comparator.comparing(Partida::getNumMovimientos)
 										.thenComparing(Comparator.naturalOrder());
 		
 		List<Partida> filtradas = new ArrayList<Partida>();
 		for (Partida p: partidas) {
-			if (p.fecha().getYear() == anyo) {
+			if (p.getFecha().getYear() == anyo) {
 				filtradas.add(p);
 			}
 		}
-		Collections.sort(filtradas, Comparator.comparing(Partida::duracion));
+		Collections.sort(filtradas, Comparator.comparing(Partida::getDuracion));
 		SortedSet<Partida> ss = new TreeSet<Partida>(c);
 		ss.addAll(filtradas.subList(0,n));
 		return ss;
 	}
 	
 	/**
-	 * FUNCIÓN TIPO ??
-	 * @param anyo Año
-	 * @param n Número entero
-	 * @return Una lista con los ids de los n jugadores con más victorias en al año dado como parámetro.
+	 * FUNCIÃ“N TIPO ??
+	 * @param anyo AÃ±o
+	 * @param n NÃºmero entero
+	 * @return Una lista con los ids de los n jugadores con mÃ¡s victorias en al aÃ±o dado como parÃ¡metro.
 	 */
-	@Override
 	public List<String> getNMejoresJugadores(Integer anyo, Integer n){ 
 		
-		Predicate<Partida> filtro = p->p.fecha().getYear() == anyo && p.getJugadorGanador()!= null;
+		Predicate<Partida> filtro = p->p.getFecha().getYear() == anyo && p.getJugadorGanador()!= null;
 		Map<String, Long> mc = getNumVictoriasPorJugador(filtro);
 		Comparator<String> c = Comparator.comparing(jugador->mc.get(jugador));
 		List<String> jugadores = new ArrayList<String>(mc.keySet());
@@ -229,8 +226,8 @@ public class PartidasBuclesImpl implements Partidas {
 		
 	/**
 	 * @param filtro Predicado para filtrar las partidas que se van a contar
-	 * @return Un Map que asocia los ids de los usuarios con el número de victorias
-	 * que tras filtrar con el predicado dado como parámetro
+	 * @return Un Map que asocia los ids de los usuarios con el nÃºmero de victorias
+	 * que tras filtrar con el predicado dado como parÃ¡metro
 	 */
 	private Map<String, Long> getNumVictoriasPorJugador(Predicate<Partida> filtro) {
 		Map<String, Long> res = new HashMap<String,Long>();
@@ -249,16 +246,15 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 
 	/**
-	 * FUNCIÓN TIPO 2
+	 * FUNCIÃ“N TIPO 2
 	 * @param idJugador Identificador de un jugador
-	 * @return El total de minutos jugados por el jugador dado como parámetro.
+	 * @return El total de minutos jugados por el jugador dado como parÃ¡metro.
 	 */
-	@Override
 	public Long getTiempoTotalJuego(String idJugador) {	
 		Long total = 0L;
 		for (Partida p: partidas) {
-			if (p.jugadorBlancas().equals(idJugador) ||p.jugadorNegras().equals(idJugador)) {
-				total+=p.duracion().toMinutes();
+			if (p.getJugadorBlancas().id().equals(idJugador) ||p.getJugadorNegras().id().equals(idJugador)) {
+				total+=p.getDuracion().toMinutes();
 			}
 		 }
 		return total;
@@ -267,17 +263,17 @@ public class PartidasBuclesImpl implements Partidas {
 	
 	/**
 	 * FUNCION TIPO ???
-	 * @param anyo Un año
+	 * @param anyo Un aÃ±o
 	 * @param resultado Un tipo de resultado
-	 * @return El id del usuario que ha ganado más partidas en
-	 * el año y con el año dados como parámetro. 
-	 * @throws NoSuchElementException Si no se puede calcular el máximo.
+	 * @return El id del usuario que ha ganado mÃ¡s partidas en
+	 * el aÃ±o y con el aÃ±o dados como parÃ¡metro. 
+	 * @throws NoSuchElementException Si no se puede calcular el mÃ¡ximo.
 	 */
 	@Override
 	public String getJugadorMasVictorias(Integer anyo, Resultado resultado) {
 
 		Predicate<Partida> filtro = 
-				p-> p.fecha().getYear() == anyo && p.resultado().equals(resultado);
+				p-> p.getFecha().getYear() == anyo && p.getResultado().equals(resultado);
 		Map<String, Long> mc = getNumVictoriasPorJugador(filtro);
 		
 		Long m = null;
@@ -297,9 +293,9 @@ public class PartidasBuclesImpl implements Partidas {
 	}
 	
 	/**
-	 * FUNCIÓN TIPO 6
-	 * @param n Número 
-	 * @return true si hay algún jugador que tenga más de n victorias
+	 * FUNCIï¿½N TIPO 6
+	 * @param n NÃºmero 
+	 * @return true si hay algÃºn jugador que tenga mÃ¡s de n victorias
 	 */
 	@Override
 	public Boolean hayJugadorConMasNVictorias(Integer n) {
@@ -320,14 +316,13 @@ public class PartidasBuclesImpl implements Partidas {
 	
 	
 	/**
-	 * FUNCIÓN TIPO 13
-	 * @param n Número entero n
+	 * FUNCIï¿½N TIPO 13
+	 * @param n NÃºmero entero n
 	 * @return Un map en el que las claves son los tipos de victoria y el valor
-	 * es el enésimo jugador con más rating entre los jugadores que han tenido
+	 * es el enÃ©simo jugador con mÃ¡s rating entre los jugadores que han tenido
 	 * victorias de ese tipo. Es decir, si hacemos un ranking de los jugadores
-	 * según su rating, nos quedaríamos con el que está en la posición n
+	 * segÃºn su rating, nos quedarÃ­amos con el que estÃ¡ en la posiciÃ³n n
 	 */
-	@Override
 	public Map<TipoVictoria, String> getGanadorNPorTipoVictoria(Integer n){
 		Map<TipoVictoria, List<Partida>> m = agruparPorTipoVictoria();
 		Map<TipoVictoria, String> res = new HashMap<TipoVictoria, String>();
@@ -340,7 +335,7 @@ public class PartidasBuclesImpl implements Partidas {
 		Map<TipoVictoria, List<Partida>> res = new HashMap<TipoVictoria, List<Partida>>();
 		for(Partida p:partidas) {
 			if (p.getJugadorGanador()!=null) {
-				TipoVictoria clave = p.tipoVictoria();
+				TipoVictoria clave = p.getTipoVictoria();
 				if (res.containsKey(clave)) {
 					res.get(clave).add(p);
 				} else {
