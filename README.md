@@ -2,6 +2,7 @@
 Autor/a: Toñi Reina   uvus:reinaqu
 
 Este proyecto es una adaptación del proyecto presentado por el estudiante Pablo Diego Acosta, en el curso 2021/22.
+El proyecto se ha actualizado para los requisitos del curso 2022/23
 
 ## Estructura de las carpetas del proyecto
 
